@@ -98,25 +98,51 @@ for (let relationship of relationships) {
 
 /*exercice 5 ( en cours )*/
 
-function checkFriendList(person, friends) {
-  for (let i = 0; i < friends.length; i++) {
-    if (person === friends[i]) {
-      return true;
+function checkIfFriendship(friend, toCheck) {
+  let checkIfBoth = false; // je créé une variable pour stocker si la relation est réciproque
+
+  for (
+    let i = 0;
+    i < relationships.length;
+    i++ // je parcours tout le tableau des relations
+  ) {
+    if (relationships[i].name === toCheck) {
+      // si la personne à vérifier existe dans le tableau
+      for (
+        let j = 0;
+        j < relationships[i].friends.length;
+        j++ // je parcours la liste de ses amies
+      ) {
+        if (relationships[i].friends[j] === friend) {
+          // si la personne que je chercher est dedans
+          checkIfBoth = true; // je modifie la variable
+        }
+      }
     }
   }
-  return false;
+
+  return checkIfBoth; // je renvoie la variable
 }
 
-for (let relationship of relationships) {
-  let person = relationship.name;
-  let friends = relationship.friends;
+for (
+  let i = 0;
+  i < relationships.length;
+  i++ // je parcours le tableau des relations
+) {
+  console.log(relationships[i].name); // pour chaque personne j'affiche son nom
+  for (
+    let j = 0;
+    j < relationships[i].friends.length;
+    j++ // pour chacun de ses amies
+  ) {
+    let both = checkIfFriendship(
+      relationships[i].name,
+      relationships[i].friends[j]
+    ); // j'utilise ma fonction pour vérifier si c'est réciproque
 
-  console.log(person);
-}
-/* for (let friend of friends) {
-    if (checkFriendList(person, friend)) {
+    if (both) {
+      // si oui je l'affiche
+      console.log(relationships[i].friends[j]);
     }
-    console.log(friend);
   }
 }
-  */
